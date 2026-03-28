@@ -1,4 +1,4 @@
-package com.mika.entity;
+package com.mika.tasks.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

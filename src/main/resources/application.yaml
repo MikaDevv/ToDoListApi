@@ -1,6 +1,8 @@
 spring:
   application:
     name: tasks
+  profiles:
+    active: dev
     
   datasource:
     url: jdbc:mysql://localhost:3306/tasksdb
@@ -8,4 +10,9 @@ spring:
     password: root
   jpa:
     hibernate:
-      ddl-auto = update
+      ddl-auto: update
+    properties:
+      jakarta:
+        persistence:
+          validation:
+            mode: auto

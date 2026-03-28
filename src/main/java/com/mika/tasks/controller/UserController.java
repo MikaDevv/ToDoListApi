@@ -1,4 +1,4 @@
-package com.mika.controller;
+package com.mika.tasks.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mika.entity.User;
-import com.mika.service.UserService;
+import com.mika.tasks.dto.UserRequestDTO;
+import com.mika.tasks.dto.UserResponseDTO;
+import com.mika.tasks.service.UserService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -19,10 +21,10 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/create")
-    public ResponseEntity<User> createUser(@RequestBody String n, String e, String p){
-
-        User u = userService.createUser(n,e,p);
-
+    public ResponseEntity<UserResponseDTO> createUser(@Valid @RequestBody UserRequestDTO uDto){
+        System.out.println("DTO recebido: " + uDto);
+        UserResponseDTO u = userService.createUser(uDto);
+        
         return ResponseEntity.status(HttpStatus.CREATED).body(u);
         
     }
