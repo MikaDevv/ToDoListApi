@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.mika.tasks.entity.User;
 import com.mika.tasks.dto.AuthDTO;
-import com.mika.tasks.dto.UserRequestDTO;
-import com.mika.tasks.dto.UserResponseDTO;
 import com.mika.tasks.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;

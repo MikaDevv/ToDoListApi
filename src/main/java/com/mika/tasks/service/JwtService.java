@@ -1,6 +1,5 @@
 package com.mika.tasks.service;
 
-import java.io.UnsupportedEncodingException;
 import java.time.Instant;
 import java.util.Date;
 
