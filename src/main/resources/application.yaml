@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: tasks
+  profiles:
+    active: dev
+  datasource:
+    url: jdbc:mysql://localhost:3306/tasksdb
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      jakarta:
+        persistence:
+          validation:
+            mode: auto
+
+jwt:
+  secret: a38adb8b0a7a2f0e2385d738c51f674c
