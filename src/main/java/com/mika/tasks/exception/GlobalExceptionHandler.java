@@ -3,6 +3,7 @@ package com.mika.tasks.exception;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -32,10 +33,24 @@ public ResponseEntity<Map<String, String>> handleConstraintViolation(ConstraintV
     }
     return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
 }
-@ExceptionHandler(RuntimeException.class)
-public ResponseEntity<Map<String, String>> handleRuntimeException(RuntimeException ex) {
+@Order(1)
+@ExceptionHandler(TaskNotFoundException.class)
+public ResponseEntity<Map<String, String>> handleTaskNotFound(TaskNotFoundException ex) {
     Map<String, String> errors = new HashMap<>();
     errors.put("error", ex.getMessage());
-    return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    return new ResponseEntity<>(errors, HttpStatus.NOT_FOUND);
+}
+@ExceptionHandler(UnauthorizedException.class)
+public ResponseEntity<Map<String, String>> handleUnauthorizedException(UnauthorizedException ex) {
+    Map<String, String> errors = new HashMap<>();
+    errors.put("error", ex.getMessage());
+    return new ResponseEntity<>(errors, HttpStatus.FORBIDDEN);
+}
+@Order(99)
+@ExceptionHandler(Exception.class)
+public ResponseEntity<Map<String, String>> handleGenericException(Exception ex) {
+    Map<String, String> errors = new HashMap<>();
+    errors.put("error", ex.getMessage());
+    return new ResponseEntity<>(errors, HttpStatus.INTERNAL_SERVER_ERROR);
 }
 }

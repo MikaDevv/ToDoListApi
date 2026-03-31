@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mika.tasks.dto.TaskRequestDTO;
 import com.mika.tasks.dto.TaskResponseDTO;
 import com.mika.tasks.dto.TaskUpdateDTO;
+import com.mika.tasks.entity.TaskStatus;
 import com.mika.tasks.service.TaskService;
 
 import jakarta.validation.Valid;
@@ -29,16 +31,16 @@ public class TaskController {
     private final TaskService taskService;
 
     @PostMapping("/create")
-    public ResponseEntity<TaskRequestDTO> createTask(@Valid @RequestBody TaskRequestDTO taskDTO){
-        TaskRequestDTO t = taskService.createTask(taskDTO);
+    public ResponseEntity<TaskResponseDTO> createTask(@Valid @RequestBody TaskRequestDTO taskDTO){
+        TaskResponseDTO t = taskService.createTask(taskDTO);
         
         return ResponseEntity.status(HttpStatus.CREATED).body(t);
 
     }
     @GetMapping("/list")
-    public ResponseEntity<List<TaskResponseDTO>> listTasks(){
+    public ResponseEntity<List<TaskResponseDTO>> listTasks(@RequestParam(value = "status", required = false) TaskStatus status){
         
-        return ResponseEntity.status(HttpStatus.OK).body(taskService.getTasksByUser());
+        return ResponseEntity.status(HttpStatus.OK).body(taskService.getTasksByUser(status));
 
     }
     @PatchMapping("/update/{id}")
