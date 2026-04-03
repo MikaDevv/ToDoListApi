@@ -46,6 +46,12 @@ public ResponseEntity<Map<String, String>> handleUnauthorizedException(Unauthori
     errors.put("error", ex.getMessage());
     return new ResponseEntity<>(errors, HttpStatus.FORBIDDEN);
 }
+@ExceptionHandler(UserAlreadyExistsException.class)
+public ResponseEntity<Map<String, String>> handleUserAlreadyExistsException(UserAlreadyExistsException ex) {
+    Map<String, String> errors = new HashMap<>();
+    errors.put("error", ex.getMessage());
+    return new ResponseEntity<>(errors, HttpStatus.CONFLICT);
+}
 @Order(99)
 @ExceptionHandler(Exception.class)
 public ResponseEntity<Map<String, String>> handleGenericException(Exception ex) {
